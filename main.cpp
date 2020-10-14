@@ -144,18 +144,35 @@ void PrintList_Sq(SqList L){
 //从前向后遍历，依次检查每个元素与其之前的元素序列是否重复，
 //重复则删去当前元素（即前移[i+1,L.length-1]==>[i,L.length-2]）,并修改顺序表长度
 void TrimList_Sq(SqList &L){
-
-    for(int i=1;i<L.length;i++){
-        for(int j=0; j<i; j++){
+    //思路①
+    //从第一个元素向后遍历，依次检查每个元素 与其之后 的元素序列是否重复，
+    //重复则删去 其后元素（即前移[j+1,L.lengthj-1]==>[j,L.length-2]）,并修改顺序表长度
+    for(int i=0;i<L.length;i++){
+        for(int j=i+1; j<L.length; j++){
             if(L.elem[j] == L.elem[i]){
-                for(int k=i; k<L.length-1;k++){
+                for(int k=j; k<L.length-1;k++){
                     L.elem[k] = L.elem[k+1];
                 }
                 L.length--;
-                break;  //与其前序列只可能存在一个重复
+                j--;    //删除该位置元素后，当前循环中的比较位置也要相应前移
             }
         }
     }
+
+    //思路②
+    //从第二个元素向后遍历，依次检查每个元素 与其之前 的元素序列是否重复，
+    //重复则删去 当前元素（即前移[i+1,L.length-1]==>[i,L.length-2]）,并修改顺序表长度
+//    for(int i=1;i<L.length;i++){
+//        for(int j=0; j<i; j++){
+//            if(L.elem[j] == L.elem[i]){
+//                for(int k=i; k<L.length-1;k++){
+//                    L.elem[k] = L.elem[k+1];
+//                }
+//                L.length--;
+//                break;  //与其前序列只可能存在一个重复
+//            }
+//        }
+//    }
 
 }
 
